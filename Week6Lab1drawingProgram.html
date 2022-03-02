@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drawing Program</title>
+
+  <style>
+
+     #canvas {
+    border: 1px rgb(248, 42, 42) solid;   
+    }
+
+  </style>
+
+</head>
+<body>
+
+
+<P>Drag the mouse on the canvas</P>
+<canvas id="canvas" height="700" width="700" ></canvas> // size of canvas
+
+ 
+<script>
+
+  let canvas = document.querySelector('#canvas')  //canvas
+  let context = canvas.getContext('2d')
+
+  // Keep track of whether the mouse button has been pressed down or not.
+  // Think of this as whether the user is drawing or not, is their brush on the canvas?
+  let mousedown = false 
+
+  canvas.addEventListener('mousedown', function() {
+    mousedown = true
+    
+    let x = event.offsetX
+    let y = event.offsetY 
+    context.beginPath()
+    context.arc(x-6, y-6, 36, 0, 6.3)  // setting click circle properties
+     
+    context.strokeStyle = 'pink'   
+    // first click will be pink 
+    context.lineWidth = 20
+
+    context.stroke()  //path for circle
+  })
+
+  canvas.addEventListener('mouseup', function() {
+    mousedown = false 
+  })
+
+  // If mouse leaves the canvas then it will stop drawing
+  canvas.addEventListener('mouseout', function() {
+    mousedown = false
+  })
+
+  canvas.addEventListener('mousemove', function() {
+
+    // If mouse button is not pressed down, do not draw on the canvas.
+    if (!mousedown) { return }
+
+    // event is a built-in variable, contains the event that triggered this function
+    // get the x, y location of the event
+    let x = event.offsetX
+    let y = event.offsetY   //offsetX, offsetY
+
+    // Draw a filled rectangle centered under the mouse click
+    // x, y is the top left corner, so shift up and left by 5 to center it under the mouse.
+    
+
+    context.beginPath()  // begin drawring 
+    context.arc(x-6, y-6, 36, 0, 6.3 )
+    context.strokeStyle = "red"   
+    //The cirlce will be red
+    context.strokeWidth = 30
+    context.stroke()
+    
+
+  })
+
+</script>
+
+</body>
+</html>
