@@ -1,0 +1,17 @@
+
+body{
+     background-color: antiquewhite;
+}
+
+#Bridge-map {
+    width: 1000px;
+    height: 500px;
+    border: 1px #f75858 solid;
+}
+
+h1 {
+    color: brown;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+
