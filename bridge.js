@@ -1,32 +1,30 @@
 
 
 let bridgeArea = [44.96, -84.2 ]   // adjust these to center map
-let zoomLevel = 3.5
+let zoomLevel = 3.5  //zoom adjust for default map viewing 
 
-let map = L.map('Bridge-map').setView(bridgeArea, zoomLevel)
+let map = L.map('Bridge-map').setView(bridgeArea, zoomLevel)  //map properties
 
-
+//adding overlay to map
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// let purpleIcon = Licon({
-//     iconUrl:'marker_icons/purple-marker.png',
-//     iconAnchor: [30,30],
-//     iconSizer: [30,30],
-//     pupupAnchor: [-15, -25]
-// })
 
-// Watched tutorials and cant get it to work
-// var leafletIcon = L.icon({
-//     iconUrl: 'https://cdn-icons-png.flaticon.com/512/183/183375.png',
-//     iconSize: [38,95],
-//     iconAnchor: [location],
-// })
+var leafletIcon = L.icon({  //average bridge icon
+    iconUrl: 'bridge.png',
+    iconSize: [50,40],
+    iconAnchor: [10, 10],
+    popupAnchor: [-15, -25]
+})
+var redleafletIcon = L.icon({  // longest bridge icon
+    iconUrl: 'redBridge.png',
+    iconSize: [40,30],
+    iconAnchor: [10, 10],
+    popupAnchor: [-15, -25]
+})
 
-// let market = L.marker(leafletIcon).addTo(map)
-
-
+// data array for looping
 data = [{"name":"Verranzano-Narrows Bridge", "span": 1298.4, "location":[40.6066, -74.0447]},
 {"name":"Golden Gate Bride", "span": 1280.2, "location":[37.8199, -122.4783]},
 {"name":"Mackinac Bridge", "span": 1158.0, "location":[45.8174, -84.7278]},
@@ -39,14 +37,17 @@ data.forEach(function (bridgeName){
    // let longestBridge = bridgeName.name("Verranzano-Narrows Bridge")
     let span = bridgeName.span
     let location = bridgeName.location
-    
-    let marker = L.marker(location)
-    .bindPopup(`${name} <br> ${span} meters long`)
+    if (span > 1290) {   // validate that the bridge is the longest
+        let marker = L.marker(location, {icon: redleafletIcon}).addTo(map)
+    }else{  //regular bridges get regular icons
+    let marker = L.marker(location, {icon: leafletIcon}).addTo(map) 
+
+
+    .bindPopup(`${name} <br> ${span} meters long`) // notation for bridges 
     .addTo(map)
-    
+    }
     // let longestBridge = L.marker(
     //     location, {purpleIcon}
     // ).addTo(map)    
 
 })
-
